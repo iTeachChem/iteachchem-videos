@@ -9,4 +9,4 @@ Every iTeachChem chemistry video for **JEE Main, JEE Advanced and NEET**, arrang
 - Filter by exam, type and length; tick off what you've watched (saved in your browser)
 - Ask doubts on [Discord](https://discord.gg/Ust8YpSCYf) · browse 4,400+ answered doubts at the [doubts index](https://iteachchem.github.io/iteachchem-doubts/)
 
-By Ashish Shekhar. The page is generated from the video list in the iTeachChem playlists sheet.
+By Ashish Shekhar (iTeachChem).
