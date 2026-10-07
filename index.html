@@ -84,6 +84,7 @@ input::placeholder{color:oklch(0.62 0.012 260)}
 .e-tab:hover{color:var(--text)}
 .e-tab.active{color:var(--text);border-bottom-color:var(--accent)}
 .e-tab .count{font:400 12px var(--mono);color:oklch(0.70 0.012 260)}
+.t-short{display:none}
 
 /* ---- layout ---- */
 #layout{display:flex;gap:32px;align-items:flex-start;padding-top:24px;padding-bottom:24px}
@@ -303,6 +304,13 @@ input::placeholder{color:oklch(0.62 0.012 260)}
   .branch:first-child{margin-top:18px}
   .u-right.zero{display:none}
 }
+/* phones: all exam tabs fit — short names, no counts (the crumb shows the count) */
+@media (max-width:560px){
+  #exam-nav{gap:0}
+  .e-tab{flex:1 1 0;justify-content:center;padding:10px 4px}
+  .t-long,.e-tab .count{display:none}
+  .t-short{display:inline}
+}
 </style>
 </head>
 <body>
@@ -373,6 +381,7 @@ const UNIT = Object.fromEntries(META.units.map(u => [u.id, u]));
 const BRANCHES = [["Physical","Physical Chemistry"],["Inorganic","Inorganic Chemistry"],["Organic","Organic Chemistry"],
                   ["JEE Advanced only","JEE Advanced only"],["Papers & mixed","Full papers & mixed revision"]];
 const EXAMS = ["All", "JEE Main", "JEE Advanced", "NEET", "BITSAT / IAT / CUET"];
+const TAB_SHORT = {"All":"All", "JEE Main":"Main", "JEE Advanced":"Adv", "NEET":"NEET", "BITSAT / IAT / CUET":"Other"};
 const EX_SHORT = {"JEE Main":"JEE Main", "JEE Advanced":"JEE Adv", "NEET":"NEET", "BITSAT / IAT / CUET":"BITSAT / IAT / CUET"};
 const LENS = [["any","Any length"],["short","< 30 min"],["full","30 min +"]];
 // per-type code chip: the only per-type colour (muted, same lightness, hue varies)
@@ -415,7 +424,7 @@ const count = (skip, pred) => VIDS.reduce((n, v) => n + (!isOld(v) && pass(v, sk
 // ---------- chrome ----------
 function renderExamTabs() {
   document.getElementById("exam-nav").innerHTML = EXAMS.map(e =>
-    `<button class="e-tab${S.exam===e?" active":""}" data-e="${esc(e)}"${S.exam===e?' aria-current="true"':""}>${esc(e)}<span class="count">${count("exam", v => e === "All" || v.ex.includes(e))}</span></button>`).join("");
+    `<button class="e-tab${S.exam===e?" active":""}" data-e="${esc(e)}" title="${esc(e)}"${S.exam===e?' aria-current="true"':""}><span class="t-long">${esc(e)}</span><span class="t-short">${TAB_SHORT[e]}</span><span class="count">${count("exam", v => e === "All" || v.ex.includes(e))}</span></button>`).join("");
 }
 function renderNav() {
   let h = `<button class="sb-item sb-all${S.unit==="all"?" active":""}" data-unit="all"><span>Whole syllabus</span><span class="sb-n">${count("unit", () => true)}</span></button>`;
