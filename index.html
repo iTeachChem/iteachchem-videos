@@ -3,279 +3,324 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <title>iTeachChem — Chemistry Video Library</title>
 <meta name="description" content="Every iTeachChem chemistry video for JEE Main, JEE Advanced and NEET, arranged by the syllabus.">
 <style>
+/* one neutral theme shared with the doubts site; --accent is the only UI colour */
 :root{
-  --navy:#1b1b2f;--navy2:#21213a;--navy3:#2a2a45;--blue:#1865f2;--teal:#14bf96;--green:#71cf45;
-  --purple:#9059ff;--orange:#ff8c00;--red:#e53e3e;--white:#fff;--border:#2e2e50;--text:#e8eaf0;
-  --muted:#8891a8;--shadow:0 2px 12px rgba(0,0,0,.35);--r:8px;--pill:999px;
+  --bg:oklch(0.175 0.008 260);
+  --surf:oklch(0.205 0.009 260);
+  --surf2:oklch(0.235 0.01 260);
+  --line:oklch(0.27 0.01 260);
+  --line2:oklch(0.32 0.01 260);
+  --text:oklch(0.96 0.004 260);
+  --muted:oklch(0.74 0.012 260);
+  --faint:oklch(0.66 0.012 260);
+  --accent:oklch(0.80 0.13 165);
+  --on-accent:oklch(0.2 0.03 165);
+  --r:8px;--r-lg:10px;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{min-height:100%;font-family:"Lato",-apple-system,sans-serif;font-size:14px;background:var(--navy);color:var(--text);overflow-x:hidden}
-a{color:inherit}
-button{font-family:inherit}
+html,body{min-height:100%;font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:14px;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:oklch(0.88 0.11 165)}
+button{font:inherit;color:inherit}
 summary{list-style:none;cursor:pointer}
 summary::-webkit-details-marker{display:none}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:var(--line2);border-radius:8px}
+::-webkit-scrollbar-track{background:transparent}
+input::placeholder{color:oklch(0.62 0.012 260)}
+.wrap{max-width:1440px;margin:0 auto;padding-left:24px;padding-right:24px}
+.mono{font-family:var(--mono)}
 
-/* ---- top chrome (same look as the doubts index) ---- */
-#topbar{position:sticky;top:0;z-index:200;background:var(--navy2);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;gap:16px;height:58px;box-shadow:var(--shadow)}
-.logo{font-size:16px;font-weight:900;white-space:nowrap;display:flex;align-items:center;gap:8px}
-.logo-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--teal),var(--blue));display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.search-wrap{flex:1;max-width:440px;position:relative;margin-left:8px}
-.search-wrap input{width:100%;background:var(--navy3);border:1.5px solid var(--border);color:var(--text);padding:8px 14px 8px 36px;border-radius:var(--pill);font-size:14px;font-family:inherit;outline:none}
-.search-wrap input:focus{border-color:var(--blue)}
-.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);opacity:.45;pointer-events:none}
-.stats{margin-left:auto;font-size:12px;color:var(--muted);white-space:nowrap}
-#byline{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:7px 24px;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted)}
-#byline b{color:var(--text)}
-#byline .by-links{margin-left:auto;display:flex;gap:12px;flex-wrap:wrap}
-#byline a{color:var(--muted);text-decoration:none;font-weight:700}
-#byline a:hover{color:var(--text)}
-#byline a.by-doubts{color:var(--teal)}
-#byline a.brand{display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 7px;border-radius:var(--pill);color:#fff;font-weight:700}
-#byline a.brand:hover{filter:brightness(1.12);color:#fff}
-.b-yt{background:#e62117}.b-dc{background:#5865f2}.b-tg{background:#229ed9}.b-ao{background:#2a2a45;border:1px solid var(--border)}
-.b-ao svg{color:var(--teal)}
-#gita{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:9px 24px;background:linear-gradient(90deg,rgba(255,153,51,.16),rgba(255,153,51,.05));border-bottom:1px solid rgba(255,153,51,.25);font-size:12.5px;color:#f3dcc0}
-#gita b{color:#ffcf99}
-.g-lotus{font-size:18px}
-.g-text{flex:1;min-width:240px;line-height:1.45}
-.g-links{display:flex;gap:8px;flex-wrap:wrap}
-.g-btn{font-size:12px;font-weight:700;text-decoration:none;color:#ffcf99;border:1px solid rgba(255,153,51,.45);padding:5px 12px;border-radius:var(--pill);white-space:nowrap}
-.g-btn:hover{background:rgba(255,153,51,.15)}
-.g-live{background:#ff9933;color:#2a1600;border-color:#ff9933}
-.g-live:hover{background:#ffad5c}
+/* ---- header: row 1 logo + search, row 2 byline (never hidden, wraps) ---- */
+#topbar{position:sticky;top:0;z-index:200;background:oklch(0.175 0.008 260 / .92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.tb-row{height:60px;display:flex;align-items:center;gap:24px}
+.logo{font-weight:600;font-size:16px;letter-spacing:-0.01em;white-space:nowrap;flex-shrink:0}
+.logo span{color:var(--muted);font-weight:500}
+.search{flex:1 1 auto;max-width:540px;min-width:160px;display:flex;align-items:center;gap:10px;height:38px;padding:0 12px;background:var(--surf);border:1px solid oklch(0.29 0.01 260);border-radius:var(--r)}
+.search:focus-within{border-color:oklch(0.45 0.05 165)}
+.search input{flex:1;min-width:0;background:transparent;border:0;outline:none;color:var(--text);font:400 14px "IBM Plex Sans",sans-serif}
+.search input::-webkit-search-cancel-button{filter:invert(.7)}
+.search kbd{font:500 11px var(--mono);color:var(--muted);border:1px solid var(--line2);border-radius:4px;padding:1px 6px}
+#byline{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;padding-top:8px;padding-bottom:8px;font-size:13px;border-top:1px solid oklch(0.24 0.01 260);color:var(--muted)}
+#byline b{color:var(--text);font-weight:500}
+#byline .by-links{margin-left:auto;display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px}
+#byline .by-links a{color:oklch(0.78 0.01 260);white-space:nowrap}
+#byline .by-links a:hover{color:var(--text)}
+#byline .by-links a.by-doubts{color:var(--accent);font-weight:500}
+
+/* ---- page intro ---- */
+.intro{padding-top:36px}
+.intro-top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 32px}
+.intro h1{font-size:30px;font-weight:600;letter-spacing:-0.02em;line-height:1.15}
+.intro-sub{margin-top:8px;font-size:14px;color:var(--muted);text-wrap:pretty}
+.intro-sub b{color:var(--text);font-weight:500}
+.intro-link{font-size:14px;font-weight:500;white-space:nowrap;flex-shrink:0}
+#gita{margin-top:20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;padding:12px 16px;border:1px solid var(--line);border-radius:var(--r-lg);font-size:14px;color:oklch(0.80 0.01 260)}
+.g-text{flex:1 1 320px;text-wrap:pretty}
+.g-text i{color:var(--text)}
+.g-links{display:flex;flex-wrap:wrap;gap:8px 16px;font-weight:500}
+.g-links a{white-space:nowrap}
 .g-short{display:none}
-.res{margin:0 0 14px;font-size:12px}
-.res>summary{display:none}
-.res-links{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.res-links::before{content:"📚 Official";font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-right:2px}
-.res-l{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-right:2px}
-.res a{text-decoration:none;color:var(--text);background:var(--navy2);border:1px solid var(--border);padding:4px 10px;border-radius:var(--pill);font-weight:700;white-space:nowrap}
-.res a:hover{border-color:var(--blue);color:#7aa8ff}
-.sb-res{margin-top:16px;border-top:1px solid var(--border);padding-top:4px}
-.sb-res a{display:block;padding:5px 8px;font-size:12px;color:var(--muted);text-decoration:none;border-radius:6px}
-.sb-res a:hover{background:var(--navy3);color:var(--text)}
-.doubts-cta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:linear-gradient(135deg,rgba(88,101,242,.16),rgba(20,191,150,.12));border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin:0 0 16px;text-decoration:none}
-.doubts-cta:hover{border-color:var(--teal)}
-.dc-n{font-size:22px;font-weight:900;color:var(--teal);white-space:nowrap}
-.dc-t{flex:1;min-width:200px;font-size:13px;line-height:1.4;color:var(--text)}
-.dc-t span{color:var(--muted);font-size:12px}
-.dc-go{font-size:12.5px;font-weight:900;color:#fff;background:#5865f2;padding:7px 14px;border-radius:var(--pill);white-space:nowrap}
-#exam-nav{display:flex;gap:4px;padding:14px 24px 0;border-bottom:1px solid var(--border);background:var(--navy2);flex-wrap:wrap}
-.e-tab{padding:9px 18px;border-radius:6px 6px 0 0;font-size:13px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--muted);display:flex;align-items:center;gap:6px}
-.e-tab:hover{color:var(--text);background:rgba(255,255,255,.05)}
-.e-tab.active{background:var(--navy);border:1px solid var(--border);border-bottom:none;color:var(--teal)}
-.e-tab .count{background:rgba(255,255,255,.08);border-radius:var(--pill);padding:1px 8px;font-size:11px}
+
+/* ---- exam tabs (underline) ---- */
+#exam-nav{display:flex;gap:4px;margin-top:24px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+#exam-nav::-webkit-scrollbar{display:none}
+.e-tab{display:flex;align-items:center;gap:8px;padding:10px 14px;background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;font-size:14px;font-weight:500;color:var(--muted);white-space:nowrap}
+.e-tab:hover{color:var(--text)}
+.e-tab.active{color:var(--text);border-bottom-color:var(--accent)}
+.e-tab .count{font:400 12px var(--mono);color:oklch(0.70 0.012 260)}
 
 /* ---- layout ---- */
-#layout{display:grid;grid-template-columns:280px 1fr;align-items:start}
-#sidebar{position:sticky;top:58px;max-height:calc(100vh - 58px);overflow-y:auto;padding:14px 10px 40px;border-right:1px solid var(--border);background:var(--navy2)}
-.sb-branch{font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);padding:14px 8px 4px}
-.sb-item{display:grid;grid-template-columns:22px 1fr auto;gap:6px;align-items:center;width:100%;padding:6px 8px;border-radius:6px;border:none;background:none;color:var(--text);font-size:12.5px;text-align:left;cursor:pointer;line-height:1.3}
-.sb-item:hover{background:var(--navy3)}
-.sb-item.active{background:var(--blue);color:#fff;font-weight:700}
-.sb-item.empty{opacity:.35}
-.sb-no{font-size:10.5px;font-weight:900;color:var(--muted);text-align:right}
-.sb-item.active .sb-no{color:#fff}
-.sb-n{font-size:11px;color:var(--muted);background:rgba(255,255,255,.06);border-radius:var(--pill);padding:1px 7px}
-.sb-item.active .sb-n{color:#fff;background:rgba(255,255,255,.2)}
-.sb-all{grid-template-columns:1fr auto;font-weight:700;border:1px solid var(--border)}
+#layout{display:flex;gap:32px;align-items:flex-start;padding-top:24px;padding-bottom:24px}
+#sidebar{flex:0 0 272px;position:sticky;top:122px;max-height:calc(100vh - 140px);overflow-y:auto;padding-right:6px}
+#content{flex:1 1 560px;min-width:0}
+
+/* ---- sidebar ---- */
+.sb-branch{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);padding:20px 10px 6px}
+.sb-item{width:100%;display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:start;padding:7px 10px;border:0;border-radius:7px;background:none;color:var(--text);cursor:pointer;text-align:left;font-size:14px;line-height:20px}
+.sb-item:hover{background:var(--surf2)}
+.sb-item.active{background:oklch(0.80 0.13 165 / .14);color:var(--accent)}
+.sb-item.empty{opacity:.45;cursor:default}
+.sb-item.empty:hover{background:none}
+.sb-no{font:400 12px/20px var(--mono);color:var(--faint);text-align:right}
+.sb-name{text-wrap:pretty}
+.sb-n{font:400 12px/20px var(--mono);color:var(--faint)}
+.sb-item.active .sb-n,.sb-item.active .sb-no{color:var(--accent);opacity:.8}
+.sb-all{grid-template-columns:1fr auto;font-weight:500;padding:9px 10px}
+.sb-res{margin-top:24px;padding:14px 10px 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px;font-size:13px}
+.sb-res .sb-branch{padding:0}
+.sb-res a{color:oklch(0.84 0.01 260)}
+.sb-res a:hover{color:var(--accent)}
 #unit-select-wrap{display:none;margin-bottom:12px}
-#unit-select-wrap select{width:100%;background:var(--navy3);color:var(--text);border:1.5px solid var(--border);border-radius:var(--r);padding:10px 12px;font-size:14px;font-family:inherit}
-#content{padding:16px 32px 80px;min-width:0;width:100%;max-width:1240px;margin:0 auto}
+#unit-select-wrap select{width:100%;height:44px;background:var(--surf);color:var(--text);border:1px solid var(--line2);border-radius:var(--r);padding:0 12px;font:400 14px "IBM Plex Sans",sans-serif}
 
-/* ---- filters ---- */
-.filters{margin-bottom:14px;background:var(--navy2);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px}
-.filters>summary{display:none;font-weight:900;font-size:13px}
-.filters>summary::after{content:" ▾";color:var(--muted)}
-.filters[open]>summary::after{content:" ▴"}
-#factive{color:var(--teal);font-weight:700;font-size:12px}
-.f-body{display:flex;flex-direction:column;gap:8px}
-.f-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.f-label{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);width:56px;flex-shrink:0}
-.chip{padding:4px 11px;border-radius:var(--pill);font-size:12px;font-weight:700;cursor:pointer;background:var(--navy3);border:1px solid var(--border);color:var(--muted)}
-.chip:hover{color:var(--text)}
-.chip.active{background:var(--purple);color:#fff;border-color:var(--purple)}
-.chip .c{opacity:.7;font-weight:400;margin-left:3px}
-.toggles{display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-size:12.5px;color:var(--muted)}
-.toggles label{display:flex;gap:6px;align-items:center;cursor:pointer}
-.toggles input{accent-color:var(--teal)}
-#clear{margin-left:auto;background:none;border:none;color:var(--muted);font-weight:700;cursor:pointer;font-size:12px;text-decoration:underline}
-#crumb{font-size:12px;color:var(--muted);margin:2px 0 12px}
-#crumb b{color:var(--text)}
+/* ---- filters: one wrapping row ---- */
+.filters{background:var(--surf);border:1px solid var(--line);border-radius:var(--r-lg);padding:12px 14px}
+.filters>summary{display:none;font-weight:600;font-size:14px}
+.filters>summary::after{content:"";display:inline-block;width:7px;height:7px;margin-left:8px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:translateY(-3px) rotate(45deg);transition:transform .2s}
+.filters[open]>summary::after{transform:translateY(0) rotate(-135deg)}
+#factive{color:var(--accent);font-weight:500;font-size:13px}
+.f-body{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.f-chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:flex;align-items:center;gap:6px;height:30px;padding:0 11px;border-radius:15px;border:1px solid var(--line2);background:transparent;color:oklch(0.84 0.01 260);cursor:pointer;font-size:13px;font-weight:500;white-space:nowrap}
+.chip:hover{border-color:oklch(0.42 0.01 260)}
+.chip.active{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.chip .c{font:400 11px var(--mono);opacity:.75}
+.seg{display:flex;gap:2px;padding:2px;border:1px solid oklch(0.29 0.01 260);border-radius:var(--r)}
+.seg .chip{height:26px;padding:0 10px;border:0;border-radius:6px;font-weight:400;color:var(--muted)}
+.seg .chip.active{background:var(--line2);color:var(--text)}
+.switch{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:oklch(0.80 0.01 260);white-space:nowrap;user-select:none}
+.switch input{position:absolute;opacity:0;width:1px;height:1px}
+.switch .track{flex-shrink:0;width:30px;height:18px;border-radius:9px;background:var(--line2);position:relative;transition:background .15s}
+.switch .track::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:7px;background:var(--text);transition:left .15s}
+.switch input:checked+.track{background:var(--accent)}
+.switch input:checked+.track::after{left:14px}
+.switch input:focus-visible+.track{outline:2px solid var(--accent);outline-offset:2px}
+#clear{margin-left:auto;background:none;border:0;cursor:pointer;font-size:13px;color:var(--accent);white-space:nowrap}
+#clear[hidden]{display:none}
+#crumb{margin-top:16px;font-size:13px;color:var(--muted)}
+#crumb:empty{display:none}
+#crumb b{color:var(--text);font-weight:500}
 
-/* ---- syllabus accordion ---- */
-.branch{margin-bottom:22px}
-.branch-h{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
-.branch-h h2{font-size:17px;font-weight:900}
-.branch-h .adv{font-size:10.5px;font-weight:900;color:var(--orange);background:rgba(255,140,0,.14);padding:2px 8px;border-radius:var(--pill)}
-.unit{background:var(--navy2);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden}
-.unit[open]{border-color:#3a3a66}
-.unit>summary{display:grid;grid-template-columns:34px 1fr auto 18px;gap:12px;align-items:center;padding:12px 14px}
-.unit>summary:hover{background:var(--navy3)}
-.u-no{width:30px;height:30px;border-radius:8px;background:rgba(20,191,150,.12);color:var(--teal);font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center}
-.u-name{font-size:14.5px;font-weight:700;line-height:1.3}
-.u-sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+/* ---- resources row + doubts call-to-action (home view) ---- */
+.res{margin-top:14px;font-size:13px}
+.res>summary{display:none}
+.res-links{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px}
+.res-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.res-links a{color:oklch(0.84 0.01 260);white-space:nowrap}
+.res-links a:hover{color:var(--accent)}
+.doubts-cta{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;padding:14px 16px;border:1px solid oklch(0.29 0.01 260);border-radius:var(--r-lg);background:var(--surf);color:var(--text)}
+.doubts-cta:hover{border-color:oklch(0.45 0.05 165);color:var(--text)}
+.dc-n{font:600 22px var(--mono);color:var(--accent);white-space:nowrap}
+.dc-t{flex:1 1 280px;font-size:14px;line-height:20px;text-wrap:pretty}
+.dc-t b{font-weight:600}
+.dc-t span{display:block;font-size:13px;color:var(--muted)}
+.dc-go{height:34px;display:flex;align-items:center;padding:0 14px;border-radius:7px;background:var(--accent);color:var(--on-accent);font-size:13px;font-weight:600;white-space:nowrap}
+
+/* ---- branches + chapter cards ---- */
+.branch{margin-top:28px}
+.branch-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;margin-bottom:10px}
+.branch-h h2{font-size:18px;font-weight:600;letter-spacing:-0.01em}
+.branch-h .meta{font:400 12px var(--mono);color:var(--faint)}
+.adv{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;background:oklch(0.30 0.05 60);color:oklch(0.88 0.07 60);white-space:nowrap}
+.units{display:flex;flex-direction:column;gap:8px}
+.unit{background:var(--surf);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.unit[open]{border-color:oklch(0.34 0.01 260)}
+.unit>summary{display:grid;grid-template-columns:36px minmax(0,1fr) auto 20px;gap:14px;align-items:center;padding:14px 16px}
+.unit>summary:hover{background:oklch(0.225 0.01 260)}
+.u-no{width:32px;height:32px;border-radius:7px;background:oklch(0.25 0.01 260);display:grid;place-items:center;font:500 13px var(--mono);color:oklch(0.80 0.01 260)}
+.u-main{min-width:0}
+.u-name{display:block;font-size:16px;font-weight:600;line-height:1.3}
+.u-sub{display:block;font-size:13px;color:oklch(0.80 0.01 260);margin-top:2px}
 .u-sub:empty{display:none}
-.u-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
-.u-count{font-size:11.5px;color:var(--muted);white-space:nowrap}
-.u-count b{color:var(--text)}
-.mini{width:70px;height:4px;background:rgba(255,255,255,.08);border-radius:var(--pill);overflow:hidden}
-.mini span{display:block;height:100%;background:var(--green)}
-.chev{color:var(--muted);transition:transform .15s;font-size:12px}
-.unit[open]>summary .chev{transform:rotate(90deg)}
-.unit.none>summary{cursor:default;opacity:.45}
-.unit-body{padding:4px 14px 14px;border-top:1px solid var(--border)}
-.open-page{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;color:var(--teal);background:none;border:none;cursor:pointer;padding:4px 0}
-.open-page:hover{text-decoration:underline}
+.u-count{display:block;font-size:13px;color:oklch(0.72 0.012 260);margin-top:2px}
+.u-right{display:flex;align-items:center;gap:10px}
+.u-prog{font:400 12px var(--mono);color:oklch(0.72 0.012 260);white-space:nowrap}
+.mini{width:56px;height:4px;border-radius:2px;background:oklch(0.29 0.01 260);overflow:hidden}
+.mini span{display:block;height:100%;background:var(--accent)}
+.chev{width:18px;height:18px;transition:transform .2s;flex-shrink:0}
+.unit[open]>summary .chev{transform:rotate(180deg)}
+.unit.none{opacity:.55}
+.unit.none>summary{cursor:default}
+.unit.none>summary:hover{background:none}
+.unit-body{border-top:1px solid var(--line);padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px}
+.open-page{align-self:flex-start;background:none;border:0;cursor:pointer;padding:4px 0 0;font-size:13px;font-weight:500;color:var(--accent)}
+.open-page:hover{color:oklch(0.88 0.11 165)}
 
-/* ---- type blocks + rows ---- */
-.type-block{margin-top:12px}
-.type-block>summary{display:flex;align-items:center;gap:8px;color:var(--acc);font-weight:900;font-size:13.5px;padding:4px 0}
-.type-block>summary::after{content:"▸";color:var(--muted);font-size:11px;transition:transform .15s}
-.type-block[open]>summary::after{transform:rotate(90deg)}
-.ty-ic{width:24px;height:24px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;background:color-mix(in srgb,var(--acc) 18%,transparent)}
-.ty-n{font-size:11px;color:var(--muted);background:rgba(255,255,255,.06);border-radius:var(--pill);padding:1px 8px}
-.ty-done{font-size:11px;color:var(--green);font-weight:700}
-.sub-h{font-size:11px;font-weight:700;color:var(--muted);margin:10px 0 0}
-.topic-h{font-size:11.5px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:10px 0 0}
-.list{display:flex;flex-direction:column;background:var(--navy);border:1px solid var(--border);border-left:3px solid var(--acc);border-radius:var(--r);overflow:hidden;margin-top:6px}
-.row{display:grid;grid-template-columns:30px 1fr 30px;gap:10px;align-items:start;padding:9px 12px;border-top:1px solid var(--border)}
-.row:first-child{border-top:none}
-.row:hover{background:rgba(255,255,255,.025)}
-.r-ep{margin-top:1px;font-size:12px;font-weight:900;text-align:center;border-radius:6px;padding:3px 0;color:var(--acc);background:color-mix(in srgb,var(--acc) 14%,transparent)}
-.r-main{min-width:0;display:flex;flex-direction:column;gap:3px}
-.r-title{font-size:14px;font-weight:700;text-decoration:none;line-height:1.3}
-.r-title:hover{color:#7aa8ff;text-decoration:underline}
-.r-kw{font-size:12px;color:#b3bad0;line-height:1.4}
-.r-meta{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-size:11.5px;color:var(--muted)}
-.r-dur{margin-right:2px}
-.xb{font-size:10px;font-weight:900;padding:1px 6px;border-radius:4px}
-.xb-jm{background:rgba(79,140,255,.16);color:#8fb4ff}.xb-ja{background:rgba(255,140,0,.16);color:#ffb35c}
-.xb-nt{background:rgba(113,207,69,.16);color:#9be07a}.xb-ot{background:rgba(255,255,255,.08);color:var(--muted)}
-.tag{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:var(--pill);background:rgba(24,101,242,.16);color:#7aa8ff}
-.tag-ka{background:rgba(20,191,150,.16);color:var(--teal)}
-.jump{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin-top:4px;padding:8px 10px;background:var(--navy2);border-radius:6px;font-size:12px}
-.jump a{text-decoration:none}
-.jump a.t{color:var(--teal);font-variant-numeric:tabular-nums;font-weight:700}
-.jump a:hover{text-decoration:underline}
-.wchk{margin-top:1px;width:24px;height:24px;border-radius:50%;border:2px solid var(--border);background:none;color:transparent;font-size:13px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;justify-self:center;transition:all .12s}
-.wchk:hover{border-color:var(--green);color:rgba(113,207,69,.5)}
-.row.watched .wchk{background:var(--green);border-color:var(--green);color:#10230a}
+/* ---- type blocks (collapsible boxes) + rows ---- */
+.type-block{border:1px solid oklch(0.29 0.01 260);border-radius:9px;overflow:hidden;background:oklch(0.19 0.008 260)}
+.type-block>summary{display:flex;align-items:center;gap:10px;padding:10px 14px;background:oklch(0.225 0.01 260)}
+.type-block>summary:hover{background:oklch(0.245 0.01 260)}
+.ty-code{font:600 10px var(--mono);letter-spacing:.04em;padding:3px 6px;border-radius:4px;background:oklch(0.30 0.05 var(--h));color:oklch(0.88 0.07 var(--h))}
+.ty-label{font-size:14px;font-weight:600}
+.ty-n{font:400 12px var(--mono);color:var(--faint)}
+.ty-done{margin-left:auto;font:400 12px var(--mono);color:oklch(0.72 0.012 260);white-space:nowrap}
+.type-block .chev{width:16px;height:16px}
+.type-block[open]>summary .chev{transform:rotate(180deg)}
+.topic-h,.sub-h{padding:12px 14px 6px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:1px solid oklch(0.25 0.01 260)}
+.row{display:grid;grid-template-columns:36px minmax(0,1fr) 36px;gap:14px;align-items:start;padding:12px 14px;border-top:1px solid oklch(0.25 0.01 260)}
+.topic-h+.list>.row:first-child,.sub-h+.list>.row:first-child{border-top:0}
+.row:hover{background:oklch(0.225 0.01 260)}
+.r-ep{font:400 12px/22px var(--mono);color:oklch(0.62 0.012 260);text-align:center}
+.r-main{min-width:0}
+.r-title{display:block;font-size:15px;font-weight:500;line-height:22px;color:var(--text);text-decoration:none}
+.r-title:hover{color:oklch(0.88 0.11 165)}
 .row.watched .r-title{color:var(--muted)}
-.older{margin-top:8px}
-.older>summary{font-size:12.5px;color:var(--muted);font-weight:700;padding:5px 0}
+.r-kw{font-size:13px;line-height:19px;color:oklch(0.72 0.012 260);margin-top:2px;text-wrap:pretty}
+.r-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:6px}
+.r-dur{font:400 12px var(--mono);color:var(--muted)}
+.tag{font-size:11px;font-weight:500;padding:1px 7px;border-radius:4px;border:1px solid oklch(0.34 0.01 260);color:oklch(0.82 0.01 260);white-space:nowrap}
+.also{font-size:12px;color:oklch(0.72 0.012 260)}
+.jump{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin-top:8px;padding:8px 10px;background:var(--surf);border-radius:6px;font-size:13px}
+.jump a{color:oklch(0.84 0.01 260)}
+.jump a.t{font:500 12px var(--mono);color:var(--accent)}
+.jump a:hover{color:var(--accent)}
+.wchk{width:32px;height:32px;margin-top:-4px;border-radius:16px;border:1.5px solid oklch(0.29 0.01 260);background:transparent;color:transparent;cursor:pointer;display:grid;place-items:center;font-size:14px;font-weight:600;justify-self:center;transition:background .12s,border-color .12s}
+.wchk:hover{border-color:var(--accent)}
+.row.watched .wchk{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.older{border-top:1px dashed var(--line2)}
+.older>summary{display:flex;align-items:center;gap:8px;padding:10px 14px 10px 64px;font-size:13px;color:oklch(0.78 0.01 260)}
 .older>summary:hover{color:var(--text)}
-.older>summary::before{content:"▸ ";display:inline-block;transition:transform .15s}
-.older[open]>summary::before{transform:rotate(90deg)}
+.older>summary b{font-weight:600}
+.older>summary .ochev{width:14px;height:14px;flex-shrink:0;transition:transform .2s}
+.older[open]>summary .ochev{transform:rotate(90deg)}
+.older .list{background:oklch(0.175 0.008 260 / .85)}
 
-/* ---- focused unit header ---- */
-.ch-card{background:linear-gradient(135deg,rgba(20,191,150,.12),rgba(24,101,242,.12));border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:6px}
-.ch-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
-.ch-kicker{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.6px;color:var(--teal)}
-.ch-card h2{font-size:21px;font-weight:900;margin-top:2px;line-height:1.25}
-.ch-card .adv{font-size:10.5px;font-weight:900;color:var(--orange);background:rgba(255,140,0,.14);padding:3px 9px;border-radius:var(--pill);white-space:nowrap}
-.ch-stats{display:flex;gap:18px;font-size:12.5px;color:var(--muted);margin:10px 0 8px;flex-wrap:wrap}
-.ch-stats b{color:var(--text);font-size:15px}
-.prog{height:6px;background:rgba(255,255,255,.08);border-radius:var(--pill);overflow:hidden}
-.prog span{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--green))}
-.back{background:none;border:none;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:10px}
+/* ---- chapter page ---- */
+.back{background:none;border:0;cursor:pointer;color:var(--muted);font-size:13px;font-weight:500;margin:16px 0 10px;padding:0}
 .back:hover{color:var(--text)}
-#empty{display:none;text-align:center;padding:60px 20px;color:var(--muted)}
-#empty h3{color:var(--text);margin-bottom:6px}
+.ch-card{background:var(--surf);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px 20px;margin-bottom:10px}
+.ch-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.ch-kicker{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.ch-card h2{font-size:24px;font-weight:600;letter-spacing:-0.02em;margin-top:4px;line-height:1.2}
+.ch-stats{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:var(--muted);margin:12px 0 10px}
+.ch-stats b{font:500 15px var(--mono);color:var(--text)}
+.prog{height:6px;border-radius:3px;background:oklch(0.29 0.01 260);overflow:hidden}
+.prog span{display:block;height:100%;background:var(--accent)}
+.ch-body{display:flex;flex-direction:column;gap:10px}
 
+#empty{display:none;margin-top:48px;text-align:center;color:var(--muted);font-size:14px}
+#empty h3{font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px}
+#empty button{background:none;border:0;color:var(--accent);cursor:pointer;font-size:14px}
+
+/* ---- tablet / phone ---- */
 @media (max-width:900px){
-  #topbar{padding:0 16px;gap:10px}
-  .logo .txt,.stats{display:none}
-  #byline,#exam-nav{padding-left:16px;padding-right:16px}
-  #exam-nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
-  #exam-nav::-webkit-scrollbar{display:none}
-  .e-tab{padding:8px 12px;white-space:nowrap}
-  #layout{grid-template-columns:1fr}
-  #sidebar{display:none}
-  #unit-select-wrap{display:block}
-  #content{padding:14px 12px 60px}
-  #gita{padding:8px 12px;gap:8px;font-size:12px}
+  .wrap{padding-left:16px;padding-right:16px}
+  #topbar{position:static}
+  .tb-row{gap:14px}
+  .search kbd{display:none}
+  #byline .by-links{margin-left:0;gap:6px 14px}
+  .intro{padding-top:24px}
+  .intro h1{font-size:24px}
   .g-long{display:none}
   .g-short{display:inline}
-  .g-lotus{font-size:15px}
-  .g-text{min-width:0;flex:1 1 calc(100% - 30px);line-height:1.4}
-  .g-links{width:100%;padding-left:26px}
-  .g-btn{padding:4px 10px;font-size:11.5px}
-  #byline{gap:8px}
-  #byline .by-links{gap:6px}
-  #byline a.brand{padding:2px 8px 2px 6px;font-size:11.5px}
-  .res>summary{display:block;cursor:pointer;color:var(--teal);font-size:12px;font-weight:900}
-  .res>summary::after{content:" ▾"}
-  .res[open]>summary::after{content:" ▴"}
-  .res-links{margin-top:8px}
-  .res-links::before{display:none}
-  .doubts-cta{padding:10px 12px;gap:10px}
-  .dc-n{font-size:18px}
-  .dc-t{min-width:0;font-size:12px}
-  .dc-t span{display:none}
-  .dc-go{padding:6px 11px;font-size:12px}
+  #layout{flex-direction:column;gap:0;padding-top:16px}
+  #sidebar{display:none}
+  #content{flex:1 1 auto;width:100%}
+  #unit-select-wrap{display:block}
   .filters>summary{display:block}
-  .f-body{margin-top:10px}
-  .f-label{width:100%}
-  .unit>summary{grid-template-columns:30px 1fr 14px;gap:10px;padding:11px 12px}
-  .u-right{grid-column:2;grid-row:2;flex-direction:row;align-items:center;gap:8px}
-  .chev{grid-column:3;grid-row:1}
-  .unit-body{padding:2px 10px 12px}
-  .row{padding:9px 10px;gap:8px;grid-template-columns:26px 1fr 28px}
+  .f-body{margin-top:12px}
+  .res>summary{display:block;font-size:13px;font-weight:600;color:var(--accent)}
+  .res-links{margin-top:8px}
+  .res-label{display:none}
+  .doubts-cta{padding:12px 14px;gap:10px 14px}
+  .dc-n{font-size:18px}
+  .dc-t{flex-basis:200px;font-size:13px}
+  .dc-t span{display:none}
+  .unit>summary{grid-template-columns:32px minmax(0,1fr) 18px;gap:10px 12px;padding:12px 14px}
+  .u-no{width:30px;height:30px}
+  .u-right{grid-column:2;grid-row:2}
+  .unit>summary .chev{grid-column:3;grid-row:1}
+  .unit-body{padding:12px 10px 14px}
+  .row{grid-template-columns:24px minmax(0,1fr) 34px;gap:10px;padding:12px 10px}
+  .older>summary{padding-left:14px}
+  .ch-card h2{font-size:21px}
 }
 </style>
 </head>
 <body>
-<div id="topbar">
-  <div class="logo"><div class="logo-icon">▶</div><span class="txt">iTeachChem Videos</span></div>
-  <div class="search-wrap">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
-    <input id="q" type="search" placeholder="Search — e.g. Nernst, SN1, buffer, VSEPR…" autocomplete="off">
+<header id="topbar">
+  <div class="wrap tb-row">
+    <span class="logo">iTeachChem <span>Videos</span></span>
+    <label class="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="oklch(0.74 0.012 260)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      <input id="q" type="search" placeholder="Search — e.g. Nernst, SN1, buffer, VSEPR…" autocomplete="off" aria-label="Search videos">
+      <kbd title="Press / to search">/</kbd>
+    </label>
   </div>
-  <div class="stats" id="stats"></div>
+  <div id="byline" class="wrap">
+    <span>By <b>Ashish Shekhar</b> · Chemistry for JEE Main, JEE Advanced &amp; NEET</span>
+    <span class="by-links">
+      <a href="https://iteachchem.github.io/iteachchem-doubts/" target="_blank" rel="noopener" class="by-doubts">4,400+ student doubts</a>
+      <a href="https://www.youtube.com/@iteachchem" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://discord.gg/Ust8YpSCYf" target="_blank" rel="noopener">Discord</a>
+      <a href="https://t.me/iTeachChem" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://www.answeroverflow.com/c/1226379612238385242" target="_blank" rel="noopener" title="All Discord doubts, searchable on Google">Answer Overflow</a>
+      <a href="https://github.com/iteachc/" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://in.linkedin.com/in/iteachchem" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://forms.gle/v1hMz8to44tUUNbF8" target="_blank" rel="noopener">Feedback</a>
+    </span>
+  </div>
+</header>
+<div class="wrap intro">
+  <div class="intro-top">
+    <div>
+      <h1>Chemistry video library</h1>
+      <p class="intro-sub">By <b>Ashish Shekhar</b> · JEE Main, JEE Advanced &amp; NEET · <span id="stats"></span></p>
+    </div>
+    <a class="intro-link" href="https://iteachchem.github.io/iteachchem-doubts/" target="_blank" rel="noopener">Browse 4,400+ student doubts →</a>
+  </div>
+  <div id="gita">
+    <span class="g-text">For the bigger questions — how to handle pressure, failure, life — we read <i>Bhagavad Gita As It Is</i> together.</span>
+    <span class="g-links">
+      <a href="https://discord.gg/JrNFuCAk2H?event=1386359084420431872" target="_blank" rel="noopener"><span class="g-long">Join the live reading on Discord</span><span class="g-short">Live reading on Discord</span></a>
+      <a href="https://www.youtube.com/playlist?list=PL5l36jh8Oss7EPz9YQi4N0qpBbEaYTeZn" target="_blank" rel="noopener"><span class="g-long">Watch from Verse 1 on YouTube</span><span class="g-short">Watch on YouTube</span></a>
+    </span>
+  </div>
+  <nav id="exam-nav" aria-label="Exam"></nav>
 </div>
-<div id="byline">
-  <span>By <b>Ashish Shekhar</b> · Chemistry for JEE Main, JEE Advanced &amp; NEET</span>
-  <span class="by-links">
-    <a href="https://iteachchem.github.io/iteachchem-doubts/" target="_blank" rel="noopener" class="by-doubts">💬 4,400+ student doubts</a>
-    <a class="brand b-yt" href="https://www.youtube.com/@iteachchem" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><rect x="1.5" y="4.5" width="21" height="15" rx="4.5" fill="currentColor"/><path d="M10 8.8v6.4l5.6-3.2z" fill="#e62117"/></svg>YouTube</a>
-    <a class="brand b-dc" href="https://discord.gg/Ust8YpSCYf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M19.3 5.4A16.6 16.6 0 0 0 15.2 4l-.5 1a15.4 15.4 0 0 0-5.4 0l-.5-1a16.6 16.6 0 0 0-4.1 1.4C2.1 9.3 1.4 13.1 1.7 16.8a16.7 16.7 0 0 0 5 2.6l1.1-1.7a10.8 10.8 0 0 1-1.7-.8l.4-.3a11.9 11.9 0 0 0 11 0l.4.3c-.5.3-1.1.6-1.7.8l1.1 1.7a16.7 16.7 0 0 0 5-2.6c.4-4.3-.6-8-2.9-11.4zM8.5 14.6c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg>Discord</a>
-    <a class="brand b-tg" href="https://t.me/iTeachChem" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="currentColor"/><path fill="#229ed9" d="M5.6 11.7l10.9-4.2c.5-.2.9.1.8.8l-1.9 8.8c-.1.6-.5.8-1 .5l-2.8-2.1-1.4 1.3c-.2.2-.3.3-.6.3l.2-2.9 5.3-4.8c.2-.2 0-.3-.3-.1L8.2 13.4l-2.8-.9c-.6-.2-.6-.6.2-.8z"/></svg>Telegram</a>
-    <a class="brand b-ao" href="https://www.answeroverflow.com/c/1226379612238385242" target="_blank" rel="noopener" title="All Discord doubts, searchable on Google"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M4 3h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path fill="#fff" d="M7.5 9.5l2 2 4-4 1.2 1.2-5.2 5.2-3.2-3.2z"/></svg>Answer Overflow</a>
-    <a href="https://forms.gle/v1hMz8to44tUUNbF8" target="_blank" rel="noopener">✍ Feedback</a>
-  </span>
-</div>
-<div id="gita">
-  <span class="g-lotus" aria-hidden="true">🪷</span>
-  <span class="g-text">For the bigger questions — how to handle pressure, failure, life — we read <i>Bhagavad Gita As It Is</i> together.</span>
-  <span class="g-links">
-    <a class="g-btn g-live" href="https://discord.gg/JrNFuCAk2H?event=1386359084420431872" target="_blank" rel="noopener"><span class="g-long">Join the live reading on Discord</span><span class="g-short">Live reading on Discord</span></a>
-    <a class="g-btn" href="https://www.youtube.com/playlist?list=PL5l36jh8Oss7EPz9YQi4N0qpBbEaYTeZn" target="_blank" rel="noopener"><span class="g-long">Watch from Verse 1 on YouTube</span><span class="g-short">Watch on YouTube</span></a>
-  </span>
-</div>
-<nav id="exam-nav"></nav>
-<div id="layout">
-  <aside id="sidebar"></aside>
+<div id="layout" class="wrap">
+  <aside id="sidebar" aria-label="Chapters"></aside>
   <main id="content">
     <div id="unit-select-wrap"><select id="unit-select" aria-label="Chapter"></select></div>
     <details class="filters" id="fwrap" open>
       <summary>Filters <span id="factive"></span></summary>
       <div class="f-body">
-        <div class="f-row"><span class="f-label">Type</span><span id="f-type" class="f-row"></span></div>
-        <div class="f-row"><span class="f-label">Length</span><span id="f-len" class="f-row"></span></div>
-        <div class="toggles">
-          <label><input type="checkbox" id="t-hidew"> Hide watched</label>
-          <button id="clear">Reset</button>
-        </div>
+        <span id="f-type" class="f-chips"></span>
+        <span id="f-len" class="seg"></span>
+        <label class="switch"><input type="checkbox" id="t-hidew"><span class="track"></span>Hide watched</label>
+        <button id="clear" hidden>Clear filters</button>
       </div>
     </details>
     <div id="crumb"></div>
     <div id="results"></div>
-    <div id="empty"><h3>No videos match</h3><p>Try another chapter, or reset the filters.</p></div>
+    <div id="empty"><h3>No videos match</h3><p>Try another chapter, or reset the filters. <button data-clear="1">Clear filters</button></p></div>
   </main>
 </div>
 <script>
@@ -285,13 +330,15 @@ const UNIT = Object.fromEntries(META.units.map(u => [u.id, u]));
 const BRANCHES = [["Physical","Physical Chemistry"],["Inorganic","Inorganic Chemistry"],["Organic","Organic Chemistry"],
                   ["JEE Advanced only","JEE Advanced only"],["Papers & mixed","Full papers & mixed revision"]];
 const EXAMS = ["All", "JEE Main", "JEE Advanced", "NEET", "BITSAT / IAT / CUET"];
-const EX_SHORT = {"JEE Main":["Main","jm"], "JEE Advanced":["Adv","ja"], "NEET":["NEET","nt"], "BITSAT / IAT / CUET":["BITSAT/IAT/CUET","ot"]};
-const LENS = [["any","Any"],["short","Under 30 min"],["full","30 min +"]];
+const EX_SHORT = {"JEE Main":"JEE Main", "JEE Advanced":"JEE Adv", "NEET":"NEET", "BITSAT / IAT / CUET":"BITSAT / IAT / CUET"};
+const LENS = [["any","Any length"],["short","< 30 min"],["full","30 min +"]];
+// per-type code chip: the only per-type colour (muted, same lightness, hue varies)
 const TYPE_STYLE = {
-  "Lecture":["▶","#4f8cff"], "NCERT Exercises":["📗","#71cf45"],
-  "NCERT Exemplar":["📘","#9059ff"], "PYQs":["📝","#ff8c00"], "Revision / Crash course":["🔁","#ff5c8a"],
-  "Full paper solution":["📄","#e5c07b"], "Exam news & guidance":["📣","#8891a8"]};
+  "Lecture":["LEC",250], "NCERT Exercises":["NCERT",145], "NCERT Exemplar":["EXMP",300], "PYQs":["PYQ",60],
+  "Revision / Crash course":["REV",15], "Full paper solution":["FULL",200], "Exam news & guidance":["NEWS",260]};
 const TYPE_LABEL = {"Lecture":"Lectures", "Full paper solution":"Full paper solutions"};
+const CHEV = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="oklch(0.74 0.012 260)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
+const OCHEV = '<svg class="ochev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>';
 const S = {exam:"All", unit:"all", types:new Set(), len:"any", hidew:false, q:""};
 let resOpen = true;
 const openUnits = new Set(), closedTypes = new Set(), openTypes = new Set();
@@ -304,6 +351,7 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":
 const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
 const fmtDur = s => { if (s == null) return ""; if (s <= 60) return "< 1 min"; const h = Math.floor(s/3600), m = Math.round(s%3600/60); return h ? `${h} h ${m} min` : `${m} min`; };
 const fmtT = s => { const h = Math.floor(s/3600), m = Math.floor(s%3600/60), x = s%60; return (h ? h + ":" + String(m).padStart(2,"0") : m) + ":" + String(x).padStart(2,"0"); };
+const fmtDay = iso => { const d = new Date(iso + "T00:00:00"); return isNaN(d) ? iso : d.toLocaleDateString("en-GB", {day:"numeric", month:"short", year:"numeric"}); };
 const isOld = v => v.tg.includes("Older recording");
 const isLecture = v => v.ty === "Lecture";
 const filtersActive = () => !!(S.q || S.types.size || S.len !== "any" || S.hidew);
@@ -324,16 +372,16 @@ const count = (skip, pred) => VIDS.reduce((n, v) => n + (!isOld(v) && pass(v, sk
 // ---------- chrome ----------
 function renderExamTabs() {
   document.getElementById("exam-nav").innerHTML = EXAMS.map(e =>
-    `<button class="e-tab${S.exam===e?" active":""}" data-e="${esc(e)}">${esc(e)} <span class="count">${count("exam", v => e === "All" || v.ex.includes(e))}</span></button>`).join("");
+    `<button class="e-tab${S.exam===e?" active":""}" data-e="${esc(e)}"${S.exam===e?' aria-current="true"':""}>${esc(e)}<span class="count">${count("exam", v => e === "All" || v.ex.includes(e))}</span></button>`).join("");
 }
 function renderNav() {
   let h = `<button class="sb-item sb-all${S.unit==="all"?" active":""}" data-unit="all"><span>Whole syllabus</span><span class="sb-n">${count("unit", () => true)}</span></button>`;
-  let o = `<option value="all">📚 Whole syllabus (${count("unit", () => true)})</option>`;
+  let o = `<option value="all">Whole syllabus (${count("unit", () => true)})</option>`;
   for (const [b, label] of BRANCHES) {
     h += `<div class="sb-branch">${label}</div>`; o += `<optgroup label="${label}">`;
     for (const u of META.units.filter(u => u.branch === b)) {
       const n = count("unit", v => v.u.includes(u.id));
-      h += `<button class="sb-item${S.unit===u.id?" active":""}${n?"":" empty"}" data-unit="${u.id}"><span class="sb-no">${u.no || ""}</span><span>${esc(u.name)}</span><span class="sb-n">${n}</span></button>`;
+      h += `<button class="sb-item${S.unit===u.id?" active":""}${n?"":" empty"}" data-unit="${u.id}"${n?"":" disabled"}><span class="sb-no">${u.no || ""}</span><span class="sb-name">${esc(u.name)}</span><span class="sb-n">${n}</span></button>`;
       o += `<option value="${u.id}">${u.no ? u.no + ". " : ""}${esc(u.name)} (${n})</option>`;
     }
     o += `</optgroup>`;
@@ -343,7 +391,7 @@ function renderNav() {
 }
 function chips(id, items, isActive, kind) {
   document.getElementById(id).innerHTML = items.map(([val, label, n]) =>
-    `<button class="chip${isActive(val)?" active":""}" data-k="${kind}" data-v="${esc(val)}">${esc(label)}${n!=null?`<span class="c">${n}</span>`:""}</button>`).join("");
+    `<button class="chip${isActive(val)?" active":""}" data-k="${kind}" data-v="${esc(val)}" aria-pressed="${isActive(val)}">${esc(label)}${n!=null?`<span class="c">${n}</span>`:""}</button>`).join("");
 }
 function renderFilters() {
   chips("f-type", META.types.map(t => [t, TYPE_LABEL[t] || t, count("type", v => v.ty === t)]).filter(x => x[2] || S.types.has(x[0])), t => S.types.has(t), "type");
@@ -351,30 +399,35 @@ function renderFilters() {
   document.getElementById("t-hidew").checked = S.hidew;
   const n = S.types.size + (S.len !== "any") + S.hidew;
   document.getElementById("factive").textContent = n ? `· ${n} active` : "";
+  document.getElementById("clear").hidden = !filtersActive();
 }
 
 // ---------- rows ----------
-const exBadges = ex => ex.map(e => `<span class="xb xb-${EX_SHORT[e][1]}" title="${esc(e)}">${EX_SHORT[e][0]}</span>`).join("");
+// exam tags only for exceptions: a video for all of JEE Main, JEE Advanced and NEET needs no tag
+const examTags = ex => (["JEE Main","JEE Advanced","NEET"].every(e => ex.includes(e)) && ex.length === 3) ? "" :
+  ex.map(e => `<span class="tag" title="${esc(e)}">${EX_SHORT[e]}</span>`).join("");
 function row(v, ep, unit) {
   const url = `https://www.youtube.com/watch?v=${v.id}`;
-  const meta = [`<span class="r-dur">${fmtDur(v.s)}</span>`, exBadges(v.ex)];
+  const w = watched.has(v.id);
+  const meta = [`<span class="r-dur">${fmtDur(v.s)}</span>`, examTags(v.ex)];
   // which topic of a two-topic unit a practice video covers, and other units it also covers
   if (unit && unit.topics.length > 1 && !isLecture(v)) v.ch.filter(c => unit.topics.includes(c)).forEach(c => meta.push(`<span class="tag">${esc(META.topics[c])}</span>`));
-  v.u.filter(u => (!unit || u !== unit.id) && u !== "x1").forEach(u => meta.push(`<span class="tag" title="Also covers">+ ${esc(UNIT[u].name)}</span>`));
-  if (v.tg.includes("Khan Academy")) meta.push(`<span class="tag tag-ka">Khan Academy</span>`);
-  if (v.tg.includes("YouTube Short")) meta.push(`<span class="tag tag-ka">Short</span>`);
+  v.u.filter(u => (!unit || u !== unit.id) && u !== "x1").forEach(u => meta.push(`<span class="also" title="Also covers">Also covers ${esc(UNIT[u].name)}</span>`));
+  if (v.tg.includes("Khan Academy")) meta.push(`<span class="tag">Khan Academy</span>`);
+  if (v.tg.includes("YouTube Short")) meta.push(`<span class="tag">Short</span>`);
   // timestamps are hidden metadata: only a search that matches one surfaces that single moment
   const hits = S.q ? v.ts.filter(([, l]) => S.q.split(/\s+/).every(w => norm(l).includes(w))).slice(0, 2) : [];
   const jump = hits.length ? `<div class="jump">${hits.map(([t, l]) =>
       `<a class="t" href="${url}&t=${t}s" target="_blank" rel="noopener" data-open="${v.id}">▶ ${fmtT(t)}</a><a href="${url}&t=${t}s" target="_blank" rel="noopener" data-open="${v.id}">${esc(l)}</a>`).join("")}</div>` : "";
-  return `<div class="row${watched.has(v.id) ? " watched" : ""}" data-id="${v.id}">
-    <span class="r-ep">${ep || TYPE_STYLE[v.ty][0]}</span>
+  const wl = w ? "Mark as not watched" : "Mark as watched";
+  return `<div class="row${w ? " watched" : ""}" data-id="${v.id}">
+    <span class="r-ep">${ep || "•"}</span>
     <div class="r-main">
       <a class="r-title" href="${url}" target="_blank" rel="noopener" data-open="${v.id}">${esc(v.dn)}</a>
       ${v.kw ? `<div class="r-kw">${esc(v.kw)}</div>` : ""}
       <div class="r-meta">${meta.join("")}</div>${jump}
     </div>
-    <button class="wchk" data-w="${v.id}" title="${watched.has(v.id) ? "Watched — click to unmark" : "Mark as watched"}" aria-label="Watched">✓</button>
+    <button class="wchk" data-w="${v.id}" title="${wl}" aria-label="${wl}">✓</button>
   </div>`;
 }
 const list = (vs, numbered, unit) => `<div class="list">${vs.map((v, i) => row(v, numbered ? i + 1 : 0, unit)).join("")}</div>`;
@@ -385,7 +438,7 @@ function olderFolds(old, unit) {
   const bySess = {};
   old.forEach(v => (bySess[v.ss] = bySess[v.ss] || []).push(v));
   return Object.entries(bySess).sort().reverse().map(([ss, vs]) =>
-    `<details class="older"${S.q ? " open" : ""}><summary>Older recording (${ss}) · ${vs.length} video${vs.length>1?"s":""} — same topics, recorded earlier</summary>${list(vs.sort(byO), vs.length > 1 && vs.every(v => v.ty === "Lecture"), unit)}</details>`).join("");
+    `<details class="older"${S.q ? " open" : ""}><summary>${OCHEV}<span><b>Older recording (${ss})</b> · ${vs.length} video${vs.length>1?"s":""} — same topics, recorded earlier</span></summary>${list(vs.sort(byO), vs.length > 1 && vs.every(v => v.ty === "Lecture"), unit)}</details>`).join("");
 }
 
 function unitBody(u, vs, focused) {
@@ -395,7 +448,7 @@ function unitBody(u, vs, focused) {
     const tv = vs.filter(v => v.ty === t);
     if (!tv.length) continue;
     const cur = tv.filter(v => !isOld(v)), old = tv.filter(isOld);
-    const [ic, col] = TYPE_STYLE[t];
+    const [code, hue] = TYPE_STYLE[t] || ["", 260];
     const done = cur.filter(v => watched.has(v.id)).length;
     const key = u.id + "|" + t;
     // lectures (or the first section when a unit has none) open; practice sections start folded
@@ -422,8 +475,8 @@ function unitBody(u, vs, focused) {
     } else {
       inner += list(cur.sort(byName), false, u);
     }
-    h += `<details class="type-block" data-tk="${esc(key)}" style="--acc:${col}"${open ? " open" : ""}>
-      <summary><span class="ty-ic">${ic}</span>${esc(TYPE_LABEL[t] || t)}<span class="ty-n">${cur.length || tv.length}</span>${done ? `<span class="ty-done">${done}/${cur.length} watched</span>` : ""}</summary>${inner}</details>`;
+    h += `<details class="type-block" data-tk="${esc(key)}" style="--h:${hue}"${open ? " open" : ""}>
+      <summary><span class="ty-code">${code}</span><span class="ty-label">${esc(TYPE_LABEL[t] || t)}</span><span class="ty-n">${cur.length || tv.length}</span><span class="ty-done">${done}/${cur.length} watched</span>${CHEV}</summary>${inner}</details>`;
   }
   return h;
 }
@@ -432,8 +485,8 @@ function unitCounts(vs) {
   const cur = vs.filter(v => !isOld(v));
   const lec = cur.filter(isLecture).length, prac = cur.length - lec, done = cur.filter(v => watched.has(v.id)).length;
   const parts = [];
-  if (lec) parts.push(`<b>${lec}</b> lecture${lec>1?"s":""}`);
-  if (prac) parts.push(`<b>${prac}</b> practice`);
+  if (lec) parts.push(`${lec} lecture${lec>1?"s":""}`);
+  if (prac) parts.push(`${prac} practice`);
   const old = vs.length - cur.length;  // re-recorded series, folded inside the chapter
   if (old) parts.push(`<span title="Earlier recordings of the same lectures — open the chapter, then Lectures">+ ${old} older</span>`);
   return {cur, done, html: parts.join(" · ")};
@@ -452,14 +505,14 @@ const RESOURCES = [
 const resLinks = () => RESOURCES.map(([l, u]) => `<a href="${u}" target="_blank" rel="noopener">${l}</a>`).join("");
 const doubtsCta = (topic) => `<a class="doubts-cta" href="https://iteachchem.github.io/iteachchem-doubts/" target="_blank" rel="noopener">
   <span class="dc-n">${DOUBTS}</span>
-  <span class="dc-t"><b>${topic ? `Still stuck on ${esc(topic)}?` : "Stuck on something?"}</b> That many student doubts are already asked and discussed on our Discord.<br><span>Yours is probably there — search by chapter before you ask. Free.</span></span>
+  <span class="dc-t"><b>${topic ? `Still stuck on ${esc(topic)}?` : "Stuck on something?"}</b> That many student doubts are already asked and discussed on our Discord.<span>Yours is probably there — search by chapter before you ask. Free.</span></span>
   <span class="dc-go">Search doubts →</span></a>`;
 
 function renderResults() {
   const vs = VIDS.filter(v => pass(v));
   const res = document.getElementById("results");
   document.getElementById("empty").style.display = vs.length ? "none" : "block";
-  document.getElementById("stats").textContent = `${VIDS.filter(v => !isOld(v)).length} videos + ${VIDS.filter(isOld).length} older recordings · updated ${META.built}`;
+  document.getElementById("stats").textContent = `${VIDS.filter(v => !isOld(v)).length} videos + ${VIDS.filter(isOld).length} older recordings · Updated ${fmtDay(META.built)}`;
 
   if (S.unit !== "all") {
     const u = UNIT[S.unit], {cur, done} = unitCounts(vs), secs = cur.reduce((a, v) => a + (v.s || 0), 0);
@@ -468,7 +521,7 @@ function renderResults() {
       <div class="ch-card"><div class="ch-top"><div><div class="ch-kicker">${u.no ? "Unit " + u.no + " · " : ""}${esc(BRANCHES.find(b => b[0] === u.branch)[1])}</div><h2>${esc(u.name)}</h2></div>${u.adv ? '<span class="adv">JEE Advanced only</span>' : ""}</div>
       <div class="ch-stats"><span><b>${cur.length}</b> videos</span><span><b>${(secs/3600).toFixed(1)}</b> hours</span><span><b>${done}</b> watched</span></div>
       <div class="prog"><span style="width:${cur.length ? Math.round(100*done/cur.length) : 0}%"></span></div></div>
-      ${unitBody(u, vs, true)}
+      <div class="ch-body">${unitBody(u, vs, true)}</div>
       <div style="margin-top:22px">${doubtsCta(u.name)}</div>`;
     return;
   }
@@ -478,27 +531,30 @@ function renderResults() {
   document.getElementById("crumb").innerHTML = `${bits.map(b => `<b>${esc(b)}</b>`).join(" › ")} — ${(n => n + (n === 1 ? " video" : " videos"))(vs.filter(v => !isOld(v)).length)} · tap a chapter to open it`;
   let h = "";
   for (const [b, label] of BRANCHES) {
-    let units = "";
+    let units = "", nUnits = 0;
     for (const u of META.units.filter(u => u.branch === b)) {
       const uv = vs.filter(v => v.u.includes(u.id));
       if (!uv.length) {
-        if (!active && S.exam === "All" && !VIDS.some(v => v.u.includes(u.id)))
-          units += `<details class="unit none"><summary><span class="u-no">${u.no || "•"}</span><span><div class="u-name">${esc(u.name)}</div><div class="u-sub">No videos yet</div></span><span></span><span></span></summary></details>`;
+        if (!active && S.exam === "All" && !VIDS.some(v => v.u.includes(u.id))) {
+          nUnits++;
+          units += `<details class="unit none"><summary><span class="u-no">${u.no || "•"}</span><span class="u-main"><span class="u-name">${esc(u.name)}</span><span class="u-count">No videos yet</span></span><span></span><span></span></summary></details>`;
+        }
         continue;
       }
+      nUnits++;
       const {cur, done, html} = unitCounts(uv);
       const open = openUnits.has(u.id) || (active && !!S.q);
       units += `<details class="unit" data-u="${u.id}"${open ? " open" : ""}>
         <summary><span class="u-no">${u.no || "•"}</span>
-          <span><div class="u-name">${esc(u.name)}</div><div class="u-sub">${u.topics.length > 1 ? u.topics.map(c => esc(META.topics[c])).join(" · ") : ""}</div></span>
-          <span class="u-right"><span class="u-count">${html}</span><span class="mini"><span style="width:${cur.length ? Math.round(100*done/cur.length) : 0}%"></span></span></span>
-          <span class="chev">▸</span></summary>
+          <span class="u-main"><span class="u-name">${esc(u.name)}</span><span class="u-sub">${u.topics.length > 1 ? u.topics.map(c => esc(META.topics[c])).join(" · ") : ""}</span><span class="u-count">${html}</span></span>
+          <span class="u-right"><span class="u-prog">${done}/${cur.length}</span><span class="mini"><span style="width:${cur.length ? Math.round(100*done/cur.length) : 0}%"></span></span></span>
+          ${CHEV}</summary>
         ${open ? `<div class="unit-body">${unitBody(u, uv, false)}<button class="open-page" data-unit="${u.id}">Open this chapter on its own page →</button></div>` : ""}
       </details>`;
     }
-    if (units) h += `<section class="branch"><div class="branch-h"><h2>${label}</h2>${b === "JEE Advanced only" ? '<span class="adv">Not in JEE Main / NEET</span>' : ""}</div>${units}</section>`;
+    if (units) h += `<section class="branch"><div class="branch-h"><h2>${label}</h2><span class="meta">${nUnits} chapter${nUnits>1?"s":""}</span>${b === "JEE Advanced only" ? '<span class="adv">Not in JEE Main / NEET</span>' : ""}</div><div class="units">${units}</div></section>`;
   }
-  res.innerHTML = (active ? "" : (matchMedia("(max-width:900px)").matches ? `<details class="res" id="resbox"${resOpen ? " open" : ""}><summary class="res-l">📚 Syllabus &amp; NCERT</summary><span class="res-links">${resLinks()}</span></details>` : `<div class="res"><span class="res-links">${resLinks()}</span></div>`) + doubtsCta()) + h;
+  res.innerHTML = (active ? "" : (matchMedia("(max-width:900px)").matches ? `<details class="res" id="resbox"${resOpen ? " open" : ""}><summary>Syllabus &amp; NCERT</summary><span class="res-links">${resLinks()}</span></details>` : `<div class="res"><span class="res-links"><span class="res-label">Official resources</span>${resLinks()}</span></div>`) + doubtsCta()) + h;
 }
 
 function render() { renderExamTabs(); renderNav(); renderFilters(); renderResults(); writeHash(); }
@@ -538,7 +594,7 @@ document.addEventListener("click", e => {
   else if (t.dataset.k === "type") S.types.has(t.dataset.v) ? S.types.delete(t.dataset.v) : S.types.add(t.dataset.v);
   else if (t.dataset.k === "len") S.len = t.dataset.v;
   else if (t.dataset.w) { const id = t.dataset.w; watched.has(id) ? watched.delete(id) : watched.add(id); saveWatched(); }
-  else if (t.id === "clear") { Object.assign(S, {types:new Set(), len:"any", hidew:false, q:""}); document.getElementById("q").value = ""; }
+  else if (t.id === "clear" || t.dataset.clear) { Object.assign(S, {types:new Set(), len:"any", hidew:false, q:""}); document.getElementById("q").value = ""; }
   else return;
   render();
 });
@@ -557,6 +613,10 @@ document.addEventListener("toggle", e => {
 document.getElementById("unit-select").addEventListener("change", e => { S.unit = e.target.value; render(); });
 document.getElementById("t-hidew").addEventListener("change", e => { S.hidew = e.target.checked; render(); });
 let qt; document.getElementById("q").addEventListener("input", e => { clearTimeout(qt); qt = setTimeout(() => { S.q = norm(e.target.value.trim()); render(); }, 180); });
+// "/" jumps to search (unless already typing somewhere)
+document.addEventListener("keydown", e => {
+  if (e.key === "/" && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) { e.preventDefault(); document.getElementById("q").focus(); }
+});
 window.addEventListener("hashchange", () => { readHash(); render(); });
 
 readHash();
