@@ -20,6 +20,8 @@
   --faint:oklch(0.66 0.012 260);
   --accent:oklch(0.80 0.13 165);
   --on-accent:oklch(0.2 0.03 165);
+  --doubts:oklch(0.80 0.11 280);      /* the doubts site's accent — used for links to it */
+  --on-doubts:oklch(0.22 0.04 280);
   --r:8px;--r-lg:10px;
   --mono:"IBM Plex Mono",ui-monospace,monospace;
 }
@@ -52,7 +54,7 @@ input::placeholder{color:oklch(0.62 0.012 260)}
 #byline .by-links{margin-left:auto;display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px}
 #byline .by-links a{color:oklch(0.78 0.01 260);white-space:nowrap}
 #byline .by-links a:hover{color:var(--text)}
-#byline .by-links a.by-doubts{color:var(--accent);font-weight:500}
+#byline .by-links a.by-doubts{color:var(--doubts);font-weight:500}
 
 /* ---- page intro ---- */
 .intro{padding-top:36px}
@@ -60,7 +62,8 @@ input::placeholder{color:oklch(0.62 0.012 260)}
 .intro h1{font-size:30px;font-weight:600;letter-spacing:-0.02em;line-height:1.15}
 .intro-sub{margin-top:8px;font-size:14px;color:var(--muted);text-wrap:pretty}
 .intro-sub b{color:var(--text);font-weight:500}
-.intro-link{font-size:14px;font-weight:500;white-space:nowrap;flex-shrink:0}
+.intro-link{font-size:14px;font-weight:500;white-space:nowrap;flex-shrink:0;color:var(--doubts)}
+.intro-link:hover{color:oklch(0.88 0.08 280)}
 #gita{margin-top:20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;padding:12px 16px;border:1px solid var(--line);border-radius:var(--r-lg);font-size:14px;color:oklch(0.80 0.01 260)}
 .g-text{flex:1 1 320px;text-wrap:pretty}
 .g-text i{color:var(--text)}
@@ -136,12 +139,12 @@ input::placeholder{color:oklch(0.62 0.012 260)}
 .res-links a{color:oklch(0.84 0.01 260);white-space:nowrap}
 .res-links a:hover{color:var(--accent)}
 .doubts-cta{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;padding:14px 16px;border:1px solid oklch(0.29 0.01 260);border-radius:var(--r-lg);background:var(--surf);color:var(--text)}
-.doubts-cta:hover{border-color:oklch(0.45 0.05 165);color:var(--text)}
-.dc-n{font:600 22px var(--mono);color:var(--accent);white-space:nowrap}
+.doubts-cta:hover{border-color:oklch(0.48 0.06 280);color:var(--text)}
+.dc-n{font:600 22px var(--mono);color:var(--doubts);white-space:nowrap}
 .dc-t{flex:1 1 280px;font-size:14px;line-height:20px;text-wrap:pretty}
 .dc-t b{font-weight:600}
 .dc-t span{display:block;font-size:13px;color:var(--muted)}
-.dc-go{height:34px;display:flex;align-items:center;padding:0 14px;border-radius:7px;background:var(--accent);color:var(--on-accent);font-size:13px;font-weight:600;white-space:nowrap}
+.dc-go{height:34px;display:flex;align-items:center;padding:0 14px;border-radius:7px;background:var(--doubts);color:var(--on-doubts);font-size:13px;font-weight:600;white-space:nowrap}
 
 /* ---- branches + chapter cards ---- */
 .branch{margin-top:28px}
@@ -261,6 +264,32 @@ input::placeholder{color:oklch(0.62 0.012 260)}
   .row{grid-template-columns:24px minmax(0,1fr) 34px;gap:10px;padding:12px 10px}
   .older>summary{padding-left:14px}
   .ch-card h2{font-size:21px}
+  /* header: logo row, full-width search, one swipeable line of links */
+  .tb-row{flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:10px;gap:10px}
+  .search{order:3;flex:1 1 100%;max-width:none;height:40px}
+  #byline{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;white-space:nowrap;gap:16px;padding-top:7px;padding-bottom:7px;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+  #byline::-webkit-scrollbar{display:none}
+  #byline .by-links{flex-wrap:nowrap;gap:16px;padding-right:24px}
+  .by-tail{display:none}
+  /* intro: just the title; counts live on the tabs, the doubts link in the header */
+  .intro{padding-top:14px}
+  .intro h1{font-size:20px}
+  .intro-sub,.intro-link{display:none}
+  #gita{margin-top:10px;padding:9px 12px;font-size:13px;gap:4px 14px}
+  .g-mid{display:none}
+  .g-text{flex:1 1 100%}
+  #exam-nav{margin-top:12px}
+  #layout{padding-top:12px}
+  /* chapter dropdown + Filters on one row; open filters drop to their own line */
+  .m-row{display:flex;flex-wrap:wrap;gap:8px}
+  #unit-select-wrap{flex:1 1 0;min-width:0;margin:0}
+  .filters{flex:0 0 auto;padding:0 14px;border-radius:var(--r)}
+  .filters>summary{height:42px;display:flex;align-items:center;white-space:nowrap}
+  .filters[open]{flex-basis:100%;padding-bottom:12px}
+  #crumb.idle{display:none}
+  .m-extras{margin-top:24px}
+  .branch:first-child{margin-top:18px}
+  .u-right.zero{display:none}
 }
 </style>
 </head>
@@ -275,7 +304,7 @@ input::placeholder{color:oklch(0.62 0.012 260)}
     </label>
   </div>
   <div id="byline" class="wrap">
-    <span>By <b>Ashish Shekhar</b> · Chemistry for JEE Main, JEE Advanced &amp; NEET</span>
+    <span class="by-name">By <b>Ashish Shekhar</b><span class="by-tail"> · Chemistry for JEE Main, JEE Advanced &amp; NEET</span></span>
     <span class="by-links">
       <a href="https://iteachchem.github.io/iteachchem-doubts/" target="_blank" rel="noopener" class="by-doubts">4,400+ student doubts</a>
       <a href="https://www.youtube.com/@iteachchem" target="_blank" rel="noopener">YouTube</a>
@@ -297,7 +326,7 @@ input::placeholder{color:oklch(0.62 0.012 260)}
     <a class="intro-link" href="https://iteachchem.github.io/iteachchem-doubts/" target="_blank" rel="noopener">Browse 4,400+ student doubts →</a>
   </div>
   <div id="gita">
-    <span class="g-text">For the bigger questions — how to handle pressure, failure, life — we read <i>Bhagavad Gita As It Is</i> together.</span>
+    <span class="g-text">For the bigger questions<span class="g-mid"> — how to handle pressure, failure, life —</span> we read <i>Bhagavad Gita As It Is</i> together.</span>
     <span class="g-links">
       <a href="https://discord.gg/JrNFuCAk2H?event=1386359084420431872" target="_blank" rel="noopener"><span class="g-long">Join the live reading on Discord</span><span class="g-short">Live reading on Discord</span></a>
       <a href="https://www.youtube.com/playlist?list=PL5l36jh8Oss7EPz9YQi4N0qpBbEaYTeZn" target="_blank" rel="noopener"><span class="g-long">Watch from Verse 1 on YouTube</span><span class="g-short">Watch on YouTube</span></a>
@@ -308,6 +337,7 @@ input::placeholder{color:oklch(0.62 0.012 260)}
 <div id="layout" class="wrap">
   <aside id="sidebar" aria-label="Chapters"></aside>
   <main id="content">
+    <div class="m-row">
     <div id="unit-select-wrap"><select id="unit-select" aria-label="Chapter"></select></div>
     <details class="filters" id="fwrap" open>
       <summary>Filters <span id="factive"></span></summary>
@@ -318,6 +348,7 @@ input::placeholder{color:oklch(0.62 0.012 260)}
         <button id="clear" hidden>Clear filters</button>
       </div>
     </details>
+    </div>
     <div id="crumb"></div>
     <div id="results"></div>
     <div id="empty"><h3>No videos match</h3><p>Try another chapter, or reset the filters. <button data-clear="1">Clear filters</button></p></div>
@@ -517,6 +548,7 @@ function renderResults() {
   if (S.unit !== "all") {
     const u = UNIT[S.unit], {cur, done} = unitCounts(vs), secs = cur.reduce((a, v) => a + (v.s || 0), 0);
     document.getElementById("crumb").innerHTML = "";
+    document.getElementById("crumb").classList.remove("idle");
     res.innerHTML = `<button class="back" data-unit="all">← Whole syllabus</button>
       <div class="ch-card"><div class="ch-top"><div><div class="ch-kicker">${u.no ? "Unit " + u.no + " · " : ""}${esc(BRANCHES.find(b => b[0] === u.branch)[1])}</div><h2>${esc(u.name)}</h2></div>${u.adv ? '<span class="adv">JEE Advanced only</span>' : ""}</div>
       <div class="ch-stats"><span><b>${cur.length}</b> videos</span><span><b>${(secs/3600).toFixed(1)}</b> hours</span><span><b>${done}</b> watched</span></div>
@@ -547,14 +579,17 @@ function renderResults() {
       units += `<details class="unit" data-u="${u.id}"${open ? " open" : ""}>
         <summary><span class="u-no">${u.no || "•"}</span>
           <span class="u-main"><span class="u-name">${esc(u.name)}</span><span class="u-sub">${u.topics.length > 1 ? u.topics.map(c => esc(META.topics[c])).join(" · ") : ""}</span><span class="u-count">${html}</span></span>
-          <span class="u-right"><span class="u-prog">${done}/${cur.length}</span><span class="mini"><span style="width:${cur.length ? Math.round(100*done/cur.length) : 0}%"></span></span></span>
+          <span class="u-right${done ? "" : " zero"}"><span class="u-prog">${done}/${cur.length}</span><span class="mini"><span style="width:${cur.length ? Math.round(100*done/cur.length) : 0}%"></span></span></span>
           ${CHEV}</summary>
         ${open ? `<div class="unit-body">${unitBody(u, uv, false)}<button class="open-page" data-unit="${u.id}">Open this chapter on its own page →</button></div>` : ""}
       </details>`;
     }
     if (units) h += `<section class="branch"><div class="branch-h"><h2>${label}</h2><span class="meta">${nUnits} chapter${nUnits>1?"s":""}</span>${b === "JEE Advanced only" ? '<span class="adv">Not in JEE Main / NEET</span>' : ""}</div><div class="units">${units}</div></section>`;
   }
-  res.innerHTML = (active ? "" : (matchMedia("(max-width:900px)").matches ? `<details class="res" id="resbox"${resOpen ? " open" : ""}><summary>Syllabus &amp; NCERT</summary><span class="res-links">${resLinks()}</span></details>` : `<div class="res"><span class="res-links"><span class="res-label">Official resources</span>${resLinks()}</span></div>`) + doubtsCta()) + h;
+  const phone = matchMedia("(max-width:900px)").matches;
+  document.getElementById("crumb").classList.toggle("idle", !active && S.exam === "All");
+  const extras = active ? "" : (phone ? `<details class="res" id="resbox"${resOpen ? " open" : ""}><summary>Syllabus &amp; NCERT</summary><span class="res-links">${resLinks()}</span></details>` : `<div class="res"><span class="res-links"><span class="res-label">Official resources</span>${resLinks()}</span></div>`) + doubtsCta();
+  res.innerHTML = phone ? h + `<div class="m-extras">${extras}</div>` : extras + h;
 }
 
 function render() { renderExamTabs(); renderNav(); renderFilters(); renderResults(); writeHash(); }
