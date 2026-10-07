@@ -66,12 +66,14 @@ input::placeholder{color:oklch(0.62 0.012 260)}
 .intro-link{font-size:14px;font-weight:500;white-space:nowrap;flex-shrink:0;color:var(--doubts)}
 .intro-link:hover{color:oklch(0.87 0.09 65)}
 /* Gita strip: one compact line, subtle sky blue — set apart without competing with the chemistry */
-#gita{--sky:oklch(0.83 0.08 230);margin-top:16px;padding:8px 12px;border:1px solid oklch(0.83 0.08 230 / .18);border-left:2px solid var(--sky);border-radius:var(--r);background:oklch(0.83 0.08 230 / .06);font-size:13px;line-height:1.5;color:oklch(0.86 0.02 230)}
+#gita{--sky:oklch(0.83 0.08 230);margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;padding:7px 8px 7px 12px;border:1px solid oklch(0.83 0.08 230 / .18);border-left:2px solid var(--sky);border-radius:var(--r);background:oklch(0.83 0.08 230 / .06);font-size:13px;line-height:1.5;color:oklch(0.86 0.02 230)}
 .g-text i{color:var(--sky);font-style:italic}
-.g-links{margin-left:6px;font-weight:500}
-.g-links a{color:var(--sky);white-space:nowrap;margin-left:10px}
-.g-links a:first-child{margin-left:0}
-.g-links a:hover{color:oklch(0.92 0.06 230)}
+.g-text{flex:1 1 320px}
+.g-m{display:none}
+/* two clearly separate actions, right-aligned like the "Browse doubts" link above */
+.g-links{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px;font-weight:500}
+.g-links a{display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid oklch(0.83 0.08 230 / .40);border-radius:6px;color:var(--sky);white-space:nowrap;font-size:12.5px}
+.g-links a:hover{background:oklch(0.83 0.08 230 / .12);border-color:var(--sky);color:oklch(0.92 0.06 230)}
 .g-short{display:none}
 
 /* ---- exam tabs (underline) ---- */
@@ -282,8 +284,11 @@ input::placeholder{color:oklch(0.62 0.012 260)}
   .intro{padding-top:14px}
   .intro h1{font-size:20px}
   .intro-sub,.intro-link{display:none}
-  #gita{margin-top:10px;padding:7px 10px;font-size:12.5px}
-  .g-mid{display:none}
+  #gita{margin-top:10px;padding:8px 10px;font-size:12.5px;gap:6px}
+  .g-d{display:none}
+  .g-m{display:inline}
+  .g-text{flex:1 1 100%}
+  .g-links{margin-left:0}
   #exam-nav{margin-top:12px}
   #layout{padding-top:12px}
   /* chapter dropdown + Filters on one row; open filters drop to their own line */
@@ -339,7 +344,7 @@ input::placeholder{color:oklch(0.62 0.012 260)}
     <a class="intro-link" href="https://iteachchem.github.io/iteachchem-doubts/" target="_blank" rel="noopener">Browse 4,400+ student doubts →</a>
   </div>
   <div id="gita">
-    <span class="g-text">For the bigger questions<span class="g-mid">, like how to handle pressure, failure and life</span>, we read <i>Bhagavad Gita As It Is</i> together.</span>
+    <span class="g-text"><span class="g-d">For the bigger questions, like how to handle pressure, failure and life, we read</span><span class="g-m">We read</span> <i>Bhagavad Gita As It Is</i> together<span class="g-d">.</span><span class="g-m">:</span></span>
     <span class="g-links">
       <a class="g-live" href="https://discord.gg/JrNFuCAk2H?event=1386359084420431872" target="_blank" rel="noopener"><span class="g-long">Join the live reading on Discord</span><span class="g-short">Live reading on Discord</span></a>
       <a href="https://www.youtube.com/playlist?list=PL5l36jh8Oss7EPz9YQi4N0qpBbEaYTeZn" target="_blank" rel="noopener"><span class="g-long">Watch from Verse 1 on YouTube</span><span class="g-short">Watch on YouTube</span></a>
