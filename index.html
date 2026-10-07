@@ -20,13 +20,14 @@
   --faint:oklch(0.66 0.012 260);
   --accent:oklch(0.80 0.13 165);
   --on-accent:oklch(0.2 0.03 165);
-  --doubts:oklch(0.80 0.11 280);      /* the doubts site's accent — used for links to it */
-  --on-doubts:oklch(0.22 0.04 280);
+  --doubts:oklch(0.80 0.12 65);      /* the doubts site's accent (light orange) — used for links to it */
+  --on-doubts:oklch(0.24 0.05 65);
   --r:8px;--r-lg:10px;
   --mono:"IBM Plex Mono",ui-monospace,monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{min-height:100%;font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:14px;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html,body{min-height:100%;font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:14px;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+body{overflow-x:clip}  /* clip, not hidden: hidden would break the sticky header */
 a{color:var(--accent);text-decoration:none}
 a:hover{color:oklch(0.88 0.11 165)}
 button{font:inherit;color:inherit}
@@ -63,7 +64,7 @@ input::placeholder{color:oklch(0.62 0.012 260)}
 .intro-sub{margin-top:8px;font-size:14px;color:var(--muted);text-wrap:pretty}
 .intro-sub b{color:var(--text);font-weight:500}
 .intro-link{font-size:14px;font-weight:500;white-space:nowrap;flex-shrink:0;color:var(--doubts)}
-.intro-link:hover{color:oklch(0.88 0.08 280)}
+.intro-link:hover{color:oklch(0.87 0.09 65)}
 #gita{margin-top:20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;padding:12px 16px;border:1px solid var(--line);border-radius:var(--r-lg);font-size:14px;color:oklch(0.80 0.01 260)}
 .g-text{flex:1 1 320px;text-wrap:pretty}
 .g-text i{color:var(--text)}
@@ -139,7 +140,7 @@ input::placeholder{color:oklch(0.62 0.012 260)}
 .res-links a{color:oklch(0.84 0.01 260);white-space:nowrap}
 .res-links a:hover{color:var(--accent)}
 .doubts-cta{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;padding:14px 16px;border:1px solid oklch(0.29 0.01 260);border-radius:var(--r-lg);background:var(--surf);color:var(--text)}
-.doubts-cta:hover{border-color:oklch(0.48 0.06 280);color:var(--text)}
+.doubts-cta:hover{border-color:oklch(0.50 0.07 65);color:var(--text)}
 .dc-n{font:600 22px var(--mono);color:var(--doubts);white-space:nowrap}
 .dc-t{flex:1 1 280px;font-size:14px;line-height:20px;text-wrap:pretty}
 .dc-t b{font-weight:600}
@@ -270,7 +271,6 @@ input::placeholder{color:oklch(0.62 0.012 260)}
   #byline{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;white-space:nowrap;gap:16px;padding-top:7px;padding-bottom:7px;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
   #byline::-webkit-scrollbar{display:none}
   #byline .by-links{flex-wrap:nowrap;gap:16px;padding-right:24px}
-  .by-tail{display:none}
   /* intro: just the title; counts live on the tabs, the doubts link in the header */
   .intro{padding-top:14px}
   .intro h1{font-size:20px}
@@ -304,7 +304,7 @@ input::placeholder{color:oklch(0.62 0.012 260)}
     </label>
   </div>
   <div id="byline" class="wrap">
-    <span class="by-name">By <b>Ashish Shekhar</b><span class="by-tail"> · Chemistry for JEE Main, JEE Advanced &amp; NEET</span></span>
+    <span class="by-name">By <b>Ashish Shekhar</b> (iTeachChem)</span>
     <span class="by-links">
       <a href="https://iteachchem.github.io/iteachchem-doubts/" target="_blank" rel="noopener" class="by-doubts">4,400+ student doubts</a>
       <a href="https://www.youtube.com/@iteachchem" target="_blank" rel="noopener">YouTube</a>
@@ -321,7 +321,7 @@ input::placeholder{color:oklch(0.62 0.012 260)}
   <div class="intro-top">
     <div>
       <h1>Chemistry video library</h1>
-      <p class="intro-sub">By <b>Ashish Shekhar</b> · JEE Main, JEE Advanced &amp; NEET · <span id="stats"></span></p>
+      <p class="intro-sub">Chemistry for JEE Main, JEE Advanced &amp; NEET · <span id="stats"></span></p>
     </div>
     <a class="intro-link" href="https://iteachchem.github.io/iteachchem-doubts/" target="_blank" rel="noopener">Browse 4,400+ student doubts →</a>
   </div>
